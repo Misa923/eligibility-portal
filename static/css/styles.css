@@ -111,3 +111,9 @@ h1{margin:0 0 12px 0; font-size: 22px}
 }
 .row-actions{margin-top: 6px}
 .delete{display:inline-flex; align-items:center; gap:8px; color: var(--muted); font-size: 13px}
+
+
+/* 1/28/26 */
+.note-row { margin-top: 10px; }
+.note-row textarea, .note-row input { width: 100%; }
+

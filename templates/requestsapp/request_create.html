@@ -51,30 +51,35 @@
   </div>
 
   <template id="empty-form-template">
-    <div class="client-row">
-      <div class="grid-4">
-        <div>
-          <label>First name</label>
-          __FIRST__
-        </div>
-        <div>
-          <label>Middle name (optional)</label>
-          __MIDDLE__
-        </div>
-        <div>
-          <label>Last name</label>
-          __LAST__
-        </div>
-        <div>
-          <label>Date of birth</label>
-          __DOB__
-        </div>
+  <div class="client-row">
+    <div class="grid-4">
+      <div>
+        <label>First name</label>
+        {{ formset.empty_form.first_name }}
       </div>
-      <div class="row-actions">
-        <label class="delete">__DELETE__ Remove</label>
+      <div>
+        <label>Middle name (optional)</label>
+        {{ formset.empty_form.middle_name }}
+      </div>
+      <div>
+        <label>Last name</label>
+        {{ formset.empty_form.last_name }}
+      </div>
+      <div>
+        <label>Date of birth</label>
+        {{ formset.empty_form.dob }}
       </div>
     </div>
-  </template>
+
+    <div class="row-actions">
+      {% if formset.can_delete %}
+        <label class="delete">
+          {{ formset.empty_form.DELETE }} Remove
+        </label>
+      {% endif %}
+    </div>
+  </div>
+</template>
 {% endblock %}
 
 {% block scripts %}
