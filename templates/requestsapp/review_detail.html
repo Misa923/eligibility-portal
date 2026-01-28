@@ -1,0 +1,68 @@
+{% extends "requestsapp/base.html" %}
+{% block title %}Review Request #{{ req.id }} · Eligibility Portal{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h1>Review Request #{{ req.id }}</h1>
+    <p class="muted">
+      Requester: <strong>{{ req.requester.username }}</strong> ({{ req.requester.email }})<br>
+      Submitted: {{ req.created_at|date:"M d, Y g:i A" }}
+    </p>
+
+    <form method="post" class="form">
+      {% csrf_token %}
+      {{ formset.management_form }}
+
+      {% if formset.non_form_errors %}
+        <div class="alert alert-error">
+          {{ formset.non_form_errors }}
+        </div>
+      {% endif %}
+
+      {% if formset.errors %}
+        <pre style="white-space: pre-wrap; color: red;">
+{{ formset.errors }}
+        </pre>
+      {% endif %}
+
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="min-width: 420px;">Client</th>
+              <th>DOB</th>
+              <th>Eligibility</th>
+              <th>Reviewer notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for form in formset %}
+              {# Hidden fields are REQUIRED so updates map to existing rows #}
+              {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+              {% endfor %}
+
+              <tr>
+                <td>
+                  <div class="grid-3">
+                    <div>{{ form.first_name }}</div>
+                    <div>{{ form.middle_name }}</div>
+                    <div>{{ form.last_name }}</div>
+                  </div>
+                </td>
+                <td>{{ form.dob }}</td>
+                <td>{{ form.eligibility }}</td>
+                <td>{{ form.reviewer_notes }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" type="submit">Mark responded + email partner</button>
+        <a class="btn" href="{% url 'review_queue' %}">Back</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "requestsapp/base.html" %}
+{% load static %}
+{% block title %}New Request · Eligibility Portal{% endblock %}
+{% block content %}
+  <div class="card">
+    <h1>Submit eligibility request</h1>
+    <p class="muted">Add one or more clients. When you submit, staff will review and mark each client as eligible or not eligible.</p>
+
+    <form method="post" id="request-form">
+      {% csrf_token %}
+      {{ formset.management_form }}
+
+      <div id="formset">
+        {% for form in formset %}
+          <div class="client-row">
+            <div class="grid-4">
+              <div>
+                <label>First name</label>
+                {{ form.first_name }}
+              </div>
+              <div>
+                <label>Middle name (optional)</label>
+                {{ form.middle_name }}
+              </div>
+              <div>
+                <label>Last name</label>
+                {{ form.last_name }}
+              </div>
+              <div>
+                <label>Date of birth</label>
+                {{ form.dob }}
+              </div>
+            </div>
+            <div class="row-actions">
+              {% if formset.can_delete %}
+                <label class="delete">
+                  {{ form.DELETE }} Remove
+                </label>
+              {% endif %}
+            </div>
+            {% if form.non_field_errors %}<div class="error">{{ form.non_field_errors }}</div>{% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn" id="add-row">+ Add another client</button>
+        <button type="submit" class="btn btn-primary">Submit request</button>
+      </div>
+    </form>
+  </div>
+
+  <template id="empty-form-template">
+    <div class="client-row">
+      <div class="grid-4">
+        <div>
+          <label>First name</label>
+          __FIRST__
+        </div>
+        <div>
+          <label>Middle name (optional)</label>
+          __MIDDLE__
+        </div>
+        <div>
+          <label>Last name</label>
+          __LAST__
+        </div>
+        <div>
+          <label>Date of birth</label>
+          __DOB__
+        </div>
+      </div>
+      <div class="row-actions">
+        <label class="delete">__DELETE__ Remove</label>
+      </div>
+    </div>
+  </template>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static 'js/formset.js' %}"></script>
+{% endblock %}

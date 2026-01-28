@@ -1,0 +1,40 @@
+{% extends "requestsapp/base.html" %}
+{% block title %}My Requests · Eligibility Portal{% endblock %}
+{% block content %}
+  <div class="page-head">
+    <h1>My requests</h1>
+    <a class="btn btn-primary" href="{% url 'request_create' %}">New request</a>
+  </div>
+
+  {% if requests %}
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Submitted</th>
+            <th>Status</th>
+            <th>Clients</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in requests %}
+            <tr>
+              <td>#{{ r.id }}</td>
+              <td>{{ r.created_at|date:"M d, Y g:i A" }}</td>
+              <td><span class="pill {{ r.status|lower }}">{{ r.get_status_display }}</span></td>
+              <td>{{ r.clients.count }}</td>
+              <td><a href="{% url 'request_detail' r.id %}">View</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="card">
+      <p>You haven't submitted any requests yet.</p>
+      <a class="btn btn-primary" href="{% url 'request_create' %}">Submit your first request</a>
+    </div>
+  {% endif %}
+{% endblock %}

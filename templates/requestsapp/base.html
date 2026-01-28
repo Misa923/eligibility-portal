@@ -1,0 +1,49 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>{% block title %}Eligibility Portal{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-row">
+      <div class="brand"><a href="{% url 'dashboard' %}">Eligibility Portal</a></div>
+      <nav class="nav">
+        {% if user.is_authenticated %}
+          <a href="{% url 'dashboard' %}">My Requests</a>
+          <a href="{% url 'request_create' %}" class="btn btn-primary">New Request</a>
+          {% if user.is_staff %}
+            <a href="{% url 'review_queue' %}">Review Queue</a>
+          {% endif %}
+          <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+          <a href="{% url 'login' %}">Login</a>
+          <a href="{% url 'signup' %}">Sign up</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+          <div class="message {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>© {% now "Y" %} Eligibility Portal</small>
+    </div>
+  </footer>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,16 @@
+# Virtual environment
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Local database
+db.sqlite3
+
+# Environment variables
+.env
+
+# OS junk
+.DS_Store
+Thumbs.db

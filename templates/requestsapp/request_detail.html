@@ -1,0 +1,31 @@
+{% extends "requestsapp/base.html" %}
+{% block title %}Request #{{ req.id }} · Eligibility Portal{% endblock %}
+{% block content %}
+  <div class="card">
+    <h1>Request #{{ req.id }}</h1>
+    <p class="muted">Submitted {{ req.created_at|date:"M d, Y g:i A" }} · Status: <strong>{{ req.get_status_display }}</strong></p>
+
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th>DOB</th>
+            <th>Eligibility</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for c in req.clients.all %}
+            <tr>
+              <td>{{ c.display_name }}</td>
+              <td>{{ c.dob }}</td>
+              <td><span class="pill {{ c.eligibility|lower }}">{{ c.get_eligibility_display }}</span></td>
+              <td class="muted">{{ c.reviewer_notes|default:"—" }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

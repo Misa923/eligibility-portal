@@ -1,0 +1,41 @@
+{% extends "requestsapp/base.html" %}
+{% block title %}Review Queue · Eligibility Portal{% endblock %}
+{% block content %}
+  <div class="page-head">
+    <h1>Review queue</h1>
+    <p class="muted">Only staff users can access this page.</p>
+  </div>
+
+  {% if requests %}
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Requester</th>
+            <th>Email</th>
+            <th>Submitted</th>
+            <th>Clients</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in requests %}
+            <tr>
+              <td>#{{ r.id }}</td>
+              <td>{{ r.requester.username }}</td>
+              <td>{{ r.requester.email }}</td>
+              <td>{{ r.created_at|date:"M d, Y g:i A" }}</td>
+              <td>{{ r.clients.count }}</td>
+              <td><a class="btn btn-primary btn-sm" href="{% url 'review_detail' r.id %}">Review</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="card">
+      <p>No pending requests.</p>
+    </div>
+  {% endif %}
+{% endblock %}
