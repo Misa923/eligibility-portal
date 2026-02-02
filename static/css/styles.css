@@ -1,5 +1,5 @@
 :root{
-  --bg:#0b1220;
+  --bg:#13465e;
   --card:#121a2c;
   --text:#e8eefc;
   --muted:#a9b4d0;
@@ -32,6 +32,11 @@ body{
   border-radius:16px;
   padding:18px;
   box-shadow: 0 10px 30px rgba(0,0,0,.25);
+  
+max-width: 360px;   /* adjust: 320–420px are common for login */
+  width: 100%;
+  margin: 60px auto;  /* centers the card */
+
 }
 
 h1{margin:0 0 12px 0; font-size: 22px}
@@ -111,6 +116,7 @@ h1{margin:0 0 12px 0; font-size: 22px}
 }
 .row-actions{margin-top: 6px}
 .delete{display:inline-flex; align-items:center; gap:8px; color: var(--muted); font-size: 13px}
+
 
 
 /* 1/28/26 */

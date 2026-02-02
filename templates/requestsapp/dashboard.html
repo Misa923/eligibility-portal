@@ -25,7 +25,7 @@
               <td>{{ r.created_at|date:"M d, Y g:i A" }}</td>
               <td><span class="pill {{ r.status|lower }}">{{ r.get_status_display }}</span></td>
               <td>{{ r.clients.count }}</td>
-              <td><a href="{% url 'request_detail' r.id %}">View</a></td>
+              <td ><a href="{% url 'request_detail' r.id %}" style="color:yellow;">View</a></td>
             </tr>
           {% endfor %}
         </tbody>
