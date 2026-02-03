@@ -32,10 +32,6 @@ body{
   border-radius:16px;
   padding:18px;
   box-shadow: 0 10px 30px rgba(0,0,0,.25);
-  
-max-width: 360px;   /* adjust: 320–420px are common for login */
-  width: 100%;
-  margin: 60px auto;  /* centers the card */
 
 }
 
