@@ -2,7 +2,8 @@
   const addBtn = document.getElementById("add-row");
   const formsetDiv = document.getElementById("formset");
   const totalFormsInput =
-    document.getElementById("id_clients-TOTAL_FORMS") ||
+   //* document.getElementById("id_clients-TOTAL_FORMS") || *//
+    document.querySelector('input[name="clients-TOTAL_FORMS"]');
     document.querySelector("input[name$='-TOTAL_FORMS']");
   const template = document.getElementById("empty-form-template");
 
